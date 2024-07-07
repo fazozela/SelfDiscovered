@@ -34,4 +34,4 @@ jobs:
           port: ${{ secrets.FTP_PORT }}
           local-dir: dist/selfdiscovered
           server-dir: /public_html/
-          log-level: info
+          log-level: minimal

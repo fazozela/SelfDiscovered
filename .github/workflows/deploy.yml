@@ -24,7 +24,6 @@ jobs:
       - name: List files for debugging
         run: |
           ls -la
-          ls -la scripts
           ls -la dist/selfdiscovered/browser
 
       - name: Build Angular project

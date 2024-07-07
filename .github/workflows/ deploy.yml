@@ -1,4 +1,4 @@
-name: Deploy Self Discovered Project to cPanel
+name: Deploy Angular Project to cPanel
 
 on:
   push:
@@ -27,8 +27,10 @@ jobs:
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@4.1.0
         with:
-          ftp-server: ${{ secrets.FTP_SERVER }}
-          ftp-username: ${{ secrets.FTP_USERNAME }}
-          ftp-password: ${{ secrets.FTP_PASSWORD }}
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: ${{ secrets.FTP_PORT }}
+          protocol: ftp
           local-dir: dist/selfdiscovered
           git-ftp-args: --insecure

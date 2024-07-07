@@ -1,50 +1,29 @@
 name: Deploy Self Discovered Project to cPanel
-
 on:
   push:
     branches:
       - main
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '20.15.0'
-
       - name: Install dependencies
         run: npm install
-
       - name: Build Angular project
         run: npm run build --prod
-
+      - name: List files in dist directory for debugging
+        run: ls -la dist/selfdiscovered
       - name: Move files from browser to selfdiscovered
         run: node movefiles.js
-        if: success()
-
-      - name: Create target directory if it does not exist
-        run: |
-          ftp -inv ${{ secrets.FTP_SERVER }} <<EOF
-          user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }}
-          mkdir -p public_html
-          bye
-          EOF
-
-      - name: List server directory contents before deployment
-        run: |
-          ftp -inv ${{ secrets.FTP_SERVER }} <<EOF
-          user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }}
-          cd public_html
-          ls
-          bye
-          EOF
-
+        if: success() # Ensures this step runs only if the previous steps are successful
+      - name: List files in dist/selfdiscovered after move
+        run: ls -la dist/selfdiscovered
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@4.1.0
         with:
@@ -56,12 +35,3 @@ jobs:
           local-dir: dist/selfdiscovered/
           server-dir: public_html/
           log-level: minimal
-
-      - name: List server directory contents after deployment
-        run: |
-          ftp -inv ${{ secrets.FTP_SERVER }} <<EOF
-          user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }}
-          cd public_html
-          ls
-          bye
-          EOF

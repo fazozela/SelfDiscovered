@@ -1,4 +1,4 @@
-name: Deploy Self Discovered Project to cPanel.
+name: Deploy Self Discovered Project to cPanel
 on:
   push:
     branches:
@@ -9,21 +9,25 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '20.15.0'
+          
       - name: Install dependencies
         run: npm install
+        
       - name: Build Angular project
         run: npm run build --prod
+        
       - name: List files in dist directory for debugging
         run: ls -la dist/selfdiscovered
+        
       - name: Move files from browser to selfdiscovered
         run: node movefiles.js
-        if: success() # Ensures this step runs only if the previous steps are successful
-      - name: List files in dist/selfdiscovered after move
-        run: ls -la dist/selfdiscovered
+        if: success()
+        
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@4.1.0
         with:
@@ -33,5 +37,5 @@ jobs:
           protocol: ftp
           port: ${{ secrets.FTP_PORT }}
           local-dir: dist/selfdiscovered/
-          server-dir: public_html/
+          server-dir: /public_html/
           log-level: minimal

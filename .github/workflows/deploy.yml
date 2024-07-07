@@ -40,7 +40,7 @@ jobs:
           protocol: ftp
           port: ${{ secrets.FTP_PORT }}
           local-dir: dist/selfdiscovered/
-          server-dir: /public_html/
+          server-dir: public_html/
           log-level: minimal
 
       - name: Check and move files in public_html directory

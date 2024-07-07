@@ -28,6 +28,15 @@ jobs:
         run: node movefiles.js
         if: success()
 
+      - name: List server directory contents before deployment
+        run: |
+          ftp -inv ${{ secrets.FTP_SERVER }} <<EOF
+          user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }}
+          cd /home/selfaeaj/public_html
+          ls
+          bye
+          EOF
+
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@4.1.0
         with:
@@ -37,7 +46,7 @@ jobs:
           protocol: ftp
           port: ${{ secrets.FTP_PORT }}
           local-dir: dist/selfdiscovered/
-          server-dir: /home/selfaeaj/public_html
+          server-dir: /home/selfaeaj/public_html/
           log-level: minimal
 
       - name: List server directory contents after deployment

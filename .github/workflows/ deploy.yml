@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '20.15.0'
+          node-version: '20.15.0'  # Specify the Node.js version
 
       - name: Install dependencies
         run: npm install
@@ -30,7 +30,8 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          port: ${{ secrets.FTP_PORT }}
           protocol: ftp
+          port: ${{ secrets.FTP_PORT }}
           local-dir: dist/selfdiscovered
-          git-ftp-args: --insecure
+          server-dir: /public_html/
+          log-level: info

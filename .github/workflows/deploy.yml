@@ -28,11 +28,19 @@ jobs:
         run: node movefiles.js
         if: success()
 
+      - name: Create target directory if it does not exist
+        run: |
+          ftp -inv ${{ secrets.FTP_SERVER }} <<EOF
+          user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }}
+          mkdir -p public_html
+          bye
+          EOF
+
       - name: List server directory contents before deployment
         run: |
           ftp -inv ${{ secrets.FTP_SERVER }} <<EOF
           user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }}
-          cd /home/selfaeaj/public_html
+          cd public_html
           ls
           bye
           EOF
@@ -46,14 +54,14 @@ jobs:
           protocol: ftp
           port: ${{ secrets.FTP_PORT }}
           local-dir: dist/selfdiscovered/
-          server-dir: /home/selfaeaj/public_html/
+          server-dir: public_html/
           log-level: minimal
 
       - name: List server directory contents after deployment
         run: |
           ftp -inv ${{ secrets.FTP_SERVER }} <<EOF
           user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }}
-          cd /home/selfaeaj/public_html
+          cd public_html
           ls
           bye
           EOF

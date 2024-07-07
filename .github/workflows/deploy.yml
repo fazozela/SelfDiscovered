@@ -28,6 +28,23 @@ jobs:
         run: node movefiles.js
         if: success()
 
+      - name: Create target directory if it does not exist
+        run: |
+          ftp -inv ${{ secrets.FTP_SERVER }} <<EOF
+          user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }}
+          mkdir -p public_html
+          bye
+          EOF
+
+      - name: List server directory contents before deployment
+        run: |
+          ftp -inv ${{ secrets.FTP_SERVER }} <<EOF
+          user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }}
+          cd public_html
+          ls
+          bye
+          EOF
+
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@4.1.0
         with:
@@ -39,3 +56,12 @@ jobs:
           local-dir: dist/selfdiscovered/
           server-dir: public_html/
           log-level: minimal
+
+      - name: List server directory contents after deployment
+        run: |
+          ftp -inv ${{ secrets.FTP_SERVER }} <<EOF
+          user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }}
+          cd public_html
+          ls
+          bye
+          EOF

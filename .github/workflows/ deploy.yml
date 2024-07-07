@@ -32,6 +32,6 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
           port: ${{ secrets.FTP_PORT }}
-          local-dir: dist/selfdiscovered
+          local-dir: dist/selfdiscovered/
           server-dir: /public_html/
           log-level: minimal

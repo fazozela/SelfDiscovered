@@ -21,6 +21,12 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: List files for debugging
+        run: |
+          ls -la
+          ls -la scripts
+          ls -la dist/selfdiscovered/browser
+
       - name: Build Angular project
         run: npm run build --prod
 

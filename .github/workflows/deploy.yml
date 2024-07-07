@@ -24,15 +24,9 @@ jobs:
       - name: Build Angular project
         run: npm run build --prod
 
-      - name: List files in dist directory for debugging
-        run: ls -la dist/selfdiscovered
-
       - name: Move files from browser to selfdiscovered
         run: node movefiles.js
-        if: success() # Ensures this step runs only if the previous steps are successful
-
-      - name: List files in dist/selfdiscovered after move
-        run: ls -la dist/selfdiscovered
+        if: success()
 
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@4.1.0
@@ -43,5 +37,14 @@ jobs:
           protocol: ftp
           port: ${{ secrets.FTP_PORT }}
           local-dir: dist/selfdiscovered/
-          server-dir: /home/selfaeaj/public_html/
+          server-dir: /home/selfaeaj/public_html
           log-level: minimal
+
+      - name: List server directory contents after deployment
+        run: |
+          ftp -inv ${{ secrets.FTP_SERVER }} <<EOF
+          user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }}
+          cd /home/selfaeaj/public_html
+          ls
+          bye
+          EOF

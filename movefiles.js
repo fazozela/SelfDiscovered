@@ -13,7 +13,7 @@ if (fs.existsSync(sourceDir)) {
   });
 
   // Remove the now empty 'browser' directory
-  fs.rmdirSync(sourceDir);
+  //fs.rmdirSync(sourceDir);
 } else {
   console.error(`Source directory ${sourceDir} does not exist.`);
 }

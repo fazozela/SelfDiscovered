@@ -40,25 +40,17 @@ jobs:
           bye
           EOF
           
-      - name: Deploy via FTP
-        id: ftp-deploy
-        uses: SamKirkland/FTP-Deploy-Action@4.1.0
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftp
-          port: ${{ secrets.FTP_PORT }}
-          local-dir: dist/selfdiscovered/
-          server-dir: public_html/
-          log-level: minimal
-
-  check-and-move-files:
-    needs: build-and-deploy
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check and move files in public_html directory
+      - name: Deploy via FTP and check/move files in public_html
         run: |
+          # Deploy via FTP
+          ftp -inv ${{ secrets.FTP_SERVER }} <<EOF
+          user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }}
+          cd public_html
+          put -r dist/selfdiscovered/*
+          bye
+          EOF
+          
+          # Check and move files in public_html
           ftp -inv ${{ secrets.FTP_SERVER }} <<EOF
           user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }}
           cd public_html

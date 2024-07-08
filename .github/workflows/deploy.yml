@@ -54,3 +54,4 @@ jobs:
           local-dir: dist/selfdiscovered/
           server-dir: /
           log-level: minimal
+        continue-on-error: true

@@ -41,6 +41,7 @@ jobs:
           EOF
           
       - name: Deploy via FTP
+        id: ftp-deploy
         uses: SamKirkland/FTP-Deploy-Action@4.1.0
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -52,6 +53,10 @@ jobs:
           server-dir: public_html/
           log-level: minimal
 
+  check-and-move-files:
+    needs: build-and-deploy
+    runs-on: ubuntu-latest
+    steps:
       - name: Check and move files in public_html directory
         run: |
           ftp -inv ${{ secrets.FTP_SERVER }} <<EOF
@@ -65,4 +70,3 @@ jobs:
           fi
           bye
           EOF
-        if: success()

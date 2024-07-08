@@ -11,25 +11,24 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '20.15.0'
-          
+
       - name: Install dependencies
         run: npm install
-        
+
       - name: Build Angular project
         run: npm run build --prod
-        
+
       - name: List files in dist directory for debugging
         run: ls -la dist/selfdiscovered
-        
+
       - name: Move files from browser to selfdiscovered
         run: node movefiles.js
-        if: success()
-        
+
       - name: Upload build artifacts
         uses: actions/upload-artifact@v2
         with:
@@ -37,15 +36,27 @@ jobs:
           path: dist/selfdiscovered/
 
   deploy:
-    needs: build  # Specify the dependency on the 'build' job
+    needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Download build artifacts
         uses: actions/download-artifact@v2
         with:
           name: selfdiscovered-build
           path: dist/selfdiscovered/
-        
+
+      - name: Debug FTP server directories
+        run: |
+          ftp -inv ${{ secrets.FTP_SERVER }} <<EOF
+          user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }}
+          ls /
+          ls /public_html
+          bye
+          EOF
+
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@4.1.0
         with:
@@ -55,5 +66,19 @@ jobs:
           protocol: ftp
           port: ${{ secrets.FTP_PORT }}
           local-dir: dist/selfdiscovered/
-          server-dir: /
+          server-dir: public_html/
           log-level: minimal
+
+      - name: Check and move files in public_html directory
+        run: |
+          ftp -inv ${{ secrets.FTP_SERVER }} <<EOF
+          user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }}
+          cd public_html
+          ls
+          if [ -d "public_html" ]; then
+            echo "Found nested public_html directory. Moving contents one level up..."
+            find public_html/* -exec mv {} ./ \;
+            rmdir public_html
+          fi
+          bye
+          EOF

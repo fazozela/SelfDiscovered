@@ -31,11 +31,12 @@ jobs:
         run: node movefiles.js
         if: success()
         
-      - name: Ensure server directory exists on FTP
+      - name: Debug FTP server directories
         run: |
           ftp -inv ${{ secrets.FTP_SERVER }} <<EOF
           user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }}
-          mkdir -p /public_html
+          ls /
+          ls /public_html
           bye
           EOF
           
@@ -48,5 +49,19 @@ jobs:
           protocol: ftp
           port: ${{ secrets.FTP_PORT }}
           local-dir: dist/selfdiscovered/
-          server-dir: /
+          server-dir: /public_html
           log-level: minimal
+
+      - name: Check and move files in public_html directory
+        run: |
+          ftp -inv ${{ secrets.FTP_SERVER }} <<EOF
+          user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }}
+          cd public_html
+          ls
+          if [ -d "public_html" ]; then
+            echo "Found nested public_html directory. Moving contents one level up..."
+            # Move contents (excluding 'browser' directory if exists) to parent directory
+            find . -mindepth 1 -maxdepth 1 -not -name 'browser' -exec mv {} .. \;
+          fi
+          bye
+          EOF

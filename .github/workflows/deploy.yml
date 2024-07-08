@@ -1,4 +1,4 @@
-name: Deploy Self Discovered Project to cPanel
+name: Deploy Self Discovered Project to cPanel.
 
 on:
   push:
@@ -31,34 +31,14 @@ jobs:
         run: node movefiles.js
         if: success()
         
-      - name: Debug FTP server directories
-        run: |
-          ftp -inv ${{ secrets.FTP_SERVER }} <<EOF
-          user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }}
-          ls /
-          ls /public_html
-          bye
-          EOF
-          
-      - name: Deploy via FTP and check/move files in public_html
-        run: |
-          # Deploy via FTP
-          ftp -inv ${{ secrets.FTP_SERVER }} <<EOF
-          user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }}
-          cd public_html
-          put -r dist/selfdiscovered/*
-          bye
-          EOF
-          
-          # Check and move files in public_html
-          ftp -inv ${{ secrets.FTP_SERVER }} <<EOF
-          user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }}
-          cd public_html
-          ls
-          if [ -d "public_html" ]; then
-            echo "Found nested public_html directory. Moving contents one level up..."
-            # Move contents (excluding 'browser' directory if exists) to parent directory
-            find . -mindepth 1 -maxdepth 1 -not -name 'browser' -exec mv {} .. \;
-          fi
-          bye
-          EOF
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.1.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          port: ${{ secrets.FTP_PORT }}
+          local-dir: dist/selfdiscovered/
+          server-dir: /
+          log-level: minimal

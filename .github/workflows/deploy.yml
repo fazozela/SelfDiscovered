@@ -25,6 +25,7 @@ jobs:
         
       - name: List files in dist directory for debugging
         run: ls -la dist/selfdiscovered
+        if: success()
         
       - name: Move files from browser to selfdiscovered
         run: node movefiles.js

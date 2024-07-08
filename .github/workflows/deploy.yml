@@ -31,8 +31,15 @@ jobs:
         run: node movefiles.js
         if: success()
         
+      - name: Ensure server directory exists on FTP
+        run: |
+          ftp -inv ${{ secrets.FTP_SERVER }} <<EOF
+          user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }}
+          mkdir -p /public_html
+          bye
+          EOF
+          
       - name: Deploy via FTP
-        id: ftp-deploy
         uses: SamKirkland/FTP-Deploy-Action@4.1.0
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -41,5 +48,5 @@ jobs:
           protocol: ftp
           port: ${{ secrets.FTP_PORT }}
           local-dir: dist/selfdiscovered/
-          server-dir: /
+          server-dir: /public_html
           log-level: minimal

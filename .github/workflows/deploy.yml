@@ -1,4 +1,4 @@
-name: Deploy Self Discovered Project to cPanel
+name: Deploy Self Discovered Project to cPanel.
 
 on:
   push:
@@ -6,8 +6,9 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -29,22 +30,6 @@ jobs:
       - name: Move files from browser to selfdiscovered
         run: node movefiles.js
         if: success()
-        
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: selfdiscovered-build
-          path: dist/selfdiscovered/
-
-  deploy:
-    needs: build  # Specify the dependency on the 'build' job
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download build artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: selfdiscovered-build
-          path: dist/selfdiscovered/
         
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@4.1.0

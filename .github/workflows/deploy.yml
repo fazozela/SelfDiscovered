@@ -32,6 +32,7 @@ jobs:
         if: success()
         
       - name: Deploy via FTP
+        id: ftp-deploy
         uses: SamKirkland/FTP-Deploy-Action@4.1.0
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -40,5 +41,20 @@ jobs:
           protocol: ftp
           port: ${{ secrets.FTP_PORT }}
           local-dir: dist/selfdiscovered/
-          server-dir: /public_html/
+          server-dir: /
           log-level: minimal
+
+      - name: Check and move files in public_html directory
+        run: |
+          ftp -inv ${{ secrets.FTP_SERVER }} <<EOF
+          user ${{ secrets.FTP_USERNAME }} ${{ secrets.FTP_PASSWORD }}
+          cd public_html
+          ls
+          if [ -d "public_html" ]; then
+            echo "Found nested public_html directory. Moving contents one level up..."
+            # Move contents (excluding 'browser' directory if exists) to parent directory
+            find . -mindepth 1 -maxdepth 1 -not -name 'browser' -exec mv {} .. \;
+          fi
+          bye
+          EOF
+        needs: build-and-deploy

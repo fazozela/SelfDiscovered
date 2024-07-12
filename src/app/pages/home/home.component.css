@@ -1,0 +1,143 @@
+.web-card {
+    display: none;
+}
+
+.text-titles {
+    font-weight: 800;
+}
+
+.card-title-header {
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.card-title-icons {
+    font-weight: 800;
+    font-size: 1.2rem;
+}
+
+/* Top image card styles */
+.text-bg-dark {
+    position: relative;
+    overflow: hidden;
+}
+
+.text-bg-dark img {
+    transition: transform 0.3s ease;
+}
+
+.text-bg-dark:hover img {
+    transform: scale(1.05);
+}
+
+.text-bg-dark .card-img-overlay {
+    background: rgba(0, 0, 0, 0.6);
+    transition: background 0.3s ease;
+}
+
+.text-bg-dark:hover .card-img-overlay {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.card-text {
+    font-size: .8rem;
+    font-weight: 200;
+}
+
+.card-img-overlay {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.btn-go {
+    background-color: #f9b2b2;
+    transition: background-color 0.3s ease;
+}
+
+.btn-go:hover {
+    background-color: #f68a8a;
+}
+
+.card-icons {
+    transition: transform 0.3s ease-in-out;
+}
+
+.card-icons:hover {
+    transform: translateY(-5px);
+}
+
+.carousel-item .card {
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #40425B;
+    border-radius: 50%;
+}
+
+.blockquote p {
+    font-size: 1.1rem;
+    font-style: italic;
+}
+
+
+@media (min-width: 992px) {
+    .mobile-card {
+        display: none;
+    }
+
+    .web-card {
+        display: block;
+    }
+
+    .card-title-header {
+        font-size: 2.5rem;
+    }
+
+    .card-text {
+        font-size: .8rem;
+    }
+
+    .card-text {
+        font-size: .7rem;
+    }
+
+    .blockquote p {
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .mobile-card {
+        display: none;
+    }
+
+    .web-card {
+        display: block;
+    }
+
+    .card-title-header {
+        font-size: 2.5rem;
+    }
+
+    .card-text {
+        font-size: .8rem;
+    }
+
+    .card-text {
+        font-size: .7rem;
+    }
+
+    .blockquote p {
+        font-size: 1rem;
+    }
+}

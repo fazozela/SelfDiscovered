@@ -1,0 +1,83 @@
+.card {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding-block: 8rem;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.card-title-section-1,
+.card-seccion-3 {
+    color: white;
+    font-weight: bold;
+}
+
+.card-text {
+    color: #6c757d;
+}
+
+.btn-primary-1-3 {
+    background-color: #f9b2b2;
+    border-color: #f9b2b2;
+    color: #303D5C;
+    transition: all 0.3s ease-in-out;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+.btn-primary-2 {
+    background-color: #303D5C;
+    border-color: #293653;
+    color: white;
+    transition: all 0.3s ease-in-out;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary-1-3:hover {
+    background-color: #f68a8a;
+    border-color: #f68a8a;
+    color: #303D5C;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary-2:hover {
+    background-color: #1f2b45;
+    border-color: #1f273a;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary-1-3 i {
+    font-size: 1.2rem;
+}
+
+.card-seccion-1,
+.card-seccion-3 {
+    background-color: #40425B;
+}
+
+.card-seccion-2 {
+    background-color: #F2B3B3;
+}

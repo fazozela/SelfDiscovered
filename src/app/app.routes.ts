@@ -9,7 +9,7 @@ import { Area3Component } from './pages/faq/area3/area3.component';
 
 export const routes: Routes = [
   {
-    path: 'inicio',
+    path: '',
     loadComponent: () => import('./pages/home/home.component')
   },
   {

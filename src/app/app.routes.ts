@@ -86,5 +86,5 @@ export const routes: Routes = [
     path: 'politicas',
     loadComponent: () => import('./pages/politics/politics.component')
   },
-  { path: '**', redirectTo: 'inicio' },
+  { path: '**', redirectTo: '' },
 ];

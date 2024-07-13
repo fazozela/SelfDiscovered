@@ -37,7 +37,6 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-
 .btn-primary-2 {
     background-color: #303D5C;
     border-color: #293653;
@@ -80,4 +79,20 @@
 
 .card-seccion-2 {
     background-color: #F2B3B3;
+}
+
+@media (max-width: 767px) {
+    .card {
+        padding-block: 2.67rem;
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+    }
+
+    .btn-primary-1-3,
+    .btn-primary-2 {
+        width: 32px;
+        height: 32px;
+    }
 }

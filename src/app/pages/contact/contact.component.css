@@ -19,14 +19,14 @@
     justify-content: center;
 }
 
-.img-container>img {
+.img-container > img {
     background: white;
     border-radius: 50%;
     padding: 10px;
     transition: transform 0.3s ease;
 }
 
-.img-container>img:hover {
+.img-container > img:hover {
     transform: scale(1.05);
 }
 
@@ -43,10 +43,20 @@
 
 .alert {
     transition: transform 0.3s ease;
+    padding: 0.5rem 1rem;
 }
 
 .alert:hover {
     transform: translateY(-5px);
+}
+
+.alert p {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.alert .btn {
+    flex-shrink: 0;
 }
 
 .btn-success,
@@ -57,6 +67,7 @@
     align-items: center;
     justify-content: center;
     transition: background-color 0.3s ease;
+    padding: 0;
 }
 
 .btn-success:hover,
@@ -75,5 +86,38 @@
 
     .invitation {
         font-size: 1rem;
+    }
+
+    .alert {
+        font-size: 0.9rem;
+    }
+
+    .alert i {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 575px) {
+    .card-title {
+        font-size: 1.2rem;
+    }
+
+    .invitation {
+        font-size: 0.8rem;
+    }
+
+    .alert {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .btn-success,
+    .btn-danger {
+        width: 24px;
+        height: 24px;
+    }
+
+    .alert i {
+        font-size: 0.9rem;
     }
 }

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import {NavigationBarComponent} from "./shared/navigation-bar/navigation-bar.component";
-import { FooterComponent } from "./shared/footer/footer.component";
+import {NavigationBarComponent} from "./shared/components/navigation-bar/navigation-bar.component";
+import { FooterComponent } from "./shared/components/footer/footer.component";
 
 @Component({
     selector: 'app-root',

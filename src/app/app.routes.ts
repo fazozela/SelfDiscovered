@@ -1,11 +1,4 @@
 import { Routes } from '@angular/router';
-import { Section1Component } from './pages/resources/section1/section1.component';
-import { Section2Component } from './pages/resources/section2/section2.component';
-import { Section3Component } from './pages/resources/section3/section3.component';
-import ResourcesComponent from './pages/resources/resources.component';
-import { Area1Component } from './pages/faq/area1/area1.component';
-import { Area2Component } from './pages/faq/area2/area2.component';
-import { Area3Component } from './pages/faq/area3/area3.component';
 
 export const routes: Routes = [
   {
@@ -13,12 +6,45 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/home/home.component')
   },
   {
+    path: 'sesion',
+    loadComponent: () => import('./pages/auth/components/auth/auth.component')
+  },
+  {
+    path: 'registrar',
+    loadComponent: () => import('./pages/auth/components/register/register.component')
+  },
+  {
     path: 'consultas',
-    loadComponent: () => import('./pages/consultations/consultations.component')
+    loadComponent: () => import('./pages/consultations/components/consultation-layout/consultation-layout.component'),
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./pages/consultations/components/consultations-page/consultation-list/consultation-list.component'),
+      },
+      {
+        path: 'crear',
+        loadComponent: () => import('./pages/consultations/components/consultations-page/consultation-create/consultation-create.component'),
+      },
+      {
+        path: ':id',
+        loadComponent: () => import('./pages/consultations/components/consultations-page/consultation-by-id/consultation-by-id.component'),
+      },
+      { path: '**', redirectTo: '' }
+    ]
   },
   {
     path: 'blog',
-    loadComponent: () => import('./pages/blog/blog.component')
+    loadComponent: () => import('./pages/blog/components/blog-layout/blog-layout.component'),
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./pages/blog/components/blog-page/blog/blog.component'),
+      },
+      {
+        path: ':id',
+        loadComponent: () => import('./pages/blog/components/blog-page/blog-by-id/blog-by-id.component'),
+      }
+    ]
   },
   {
     path: 'biblioteca',
@@ -34,19 +60,19 @@ export const routes: Routes = [
   },
   {
     path: 'preguntas',
-    loadComponent: () => import('./pages/faq/faq.component'),
+    loadComponent: () => import('./pages/faq/components/faq-page/faq/faq.component'),
     children: [
       {
         path: 'area_1',
-        component: Area1Component
+        loadComponent: () => import('./pages/faq/components/faq-page/area1/area1.component')
       },
       {
         path: 'area_2',
-        component: Area2Component
+        loadComponent: () => import('./pages/faq/components/faq-page/area2/area2.component')
       },
       {
         path: 'area_3',
-        component: Area3Component
+        loadComponent: () => import('./pages/faq/components/faq-page/area3/area3.component')
       },
       { path: '**', redirectTo: 'area_1' }
     ]
@@ -57,23 +83,23 @@ export const routes: Routes = [
   },
   {
     path: 'recursos',
-    loadComponent: () => import('./pages/resources/layout/layout.component'),
+    loadComponent: () => import('./pages/resources/components/resources-layout/resourcesLayoutComponent'),
     children: [
       {
         path: '',
-        component: ResourcesComponent
+        loadComponent: () => import('./pages/resources/components/resources-page/resources/resources.component')
       },
       {
         path: 'seccion_1',
-        component: Section1Component
+        loadComponent: () => import('./pages/resources/components/resources-page/section1/section1.component')
       },
       {
         path: 'seccion_2',
-        component: Section2Component
+        loadComponent: () => import('./pages/resources/components/resources-page/section2/section2.component')
       },
       {
         path: 'seccion_3',
-        component: Section3Component
+        loadComponent: () => import('./pages/resources/components/resources-page/section3/section3.component')
       },
       { path: '**', redirectTo: '' }
     ]

@@ -1,0 +1,45 @@
+:host {
+  display: block;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  padding: 2rem 0;
+}
+
+.card {
+  border: none;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.card-header {
+  background-color: #313445;
+  padding: 1.5rem;
+}
+
+.form-control:focus {
+  border-color: #f9b2b2;
+  box-shadow: 0 0 0 0.2rem rgba(249, 178, 178, 0.25);
+}
+
+.btn-primary {
+  background-color: #313445;
+  border-color: #313445;
+
+  &:hover, &:focus {
+    background-color: darken(#313445, 10%);
+    border-color: darken(#313445, 10%);
+  }
+
+  &:disabled {
+    background-color: lighten(#313445, 20%);
+    border-color: lighten(#313445, 20%);
+  }
+}
+
+.invalid-feedback {
+  color: #f9b2b2;
+}
+
+.form-control.is-invalid {
+  border-color: #f9b2b2;
+}

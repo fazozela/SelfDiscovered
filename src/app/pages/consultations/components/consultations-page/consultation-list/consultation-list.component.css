@@ -1,0 +1,111 @@
+.container {
+  max-width: 800px;
+}
+
+.btn-create {
+  background-color: #f9b2b2;
+  color: #313445;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-create:hover {
+  background-color: #ff9999;
+}
+
+.consultation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.consultation-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #313445;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.consultation-card:hover {
+  transform: translateY(-2px);
+}
+
+.consultation-info {
+  flex-grow: 1;
+}
+
+.consultation-title {
+  color: #f9b2b2;
+  font-size: 1.2rem;
+  margin-bottom: 4px;
+}
+
+.consultation-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-arrow {
+  background-color: transparent;
+  border: none;
+  color: #f9b2b2;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-arrow:hover {
+  background-color: rgba(249, 178, 178, 0.2);
+}
+
+.login-prompt-card {
+  max-width: 400px;
+  margin: 2rem auto;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  transition: transform 0.3s ease-in-out;
+}
+
+.login-prompt-card:hover {
+  transform: translateY(-5px);
+}
+
+.login-prompt-card .card-body {
+  padding: 2rem;
+}
+
+.login-prompt-card .fas {
+  color: #f9b2b2;
+}
+
+.login-prompt-card .card-title {
+  color: #313445;
+  margin-bottom: 1rem;
+}
+
+.login-prompt-card .card-text {
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.login-prompt-card .btn-primary {
+  background-color: #313445;
+  border-color: #313445;
+  padding: 0.5rem 2rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.login-prompt-card .btn-primary:hover {
+  background-color: #f9b2b2;
+  border-color: #f9b2b2;
+  color: #313445;
+}

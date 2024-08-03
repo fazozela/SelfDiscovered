@@ -1,0 +1,37 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-lg">
+        <div class="card-header text-white">
+          <h2 class="mb-0">Crear Nueva Consulta</h2>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="consultationForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+            <div class="mb-3">
+              <label for="title" class="form-label">Título</label>
+              <input type="text" class="form-control" id="title" formControlName="title"
+                     [class.is-invalid]="consultationForm.get('title')?.invalid && consultationForm.get('title')?.touched">
+              <div class="invalid-feedback" *ngIf="consultationForm.get('title')?.invalid && consultationForm.get('title')?.touched">
+                El título es requerido y debe tener al menos 3 caracteres.
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="content" class="form-label">Contenido</label>
+              <textarea class="form-control" id="content" rows="5" formControlName="content"
+                        [class.is-invalid]="consultationForm.get('content')?.invalid && consultationForm.get('content')?.touched"></textarea>
+              <div class="invalid-feedback" *ngIf="consultationForm.get('content')?.invalid && consultationForm.get('content')?.touched">
+                El contenido es requerido y debe tener al menos 10 caracteres.
+              </div>
+            </div>
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary btn-lg" [disabled]="consultationForm.invalid || isSubmitting">
+                <output *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-2" aria-live="polite">Enviando...</output>
+                {{ isSubmitting ? 'Enviando...' : 'Crear Consulta' }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

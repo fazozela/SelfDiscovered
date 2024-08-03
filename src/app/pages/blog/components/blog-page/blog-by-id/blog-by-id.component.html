@@ -1,0 +1,25 @@
+<div class="container-fluid">
+  <div class="row mb-4">
+    <div class="col-12">
+      <a class="btn btn-primary back-button" routerLink="/blog">
+        <i class="fas fa-arrow-left"></i>
+      </a>
+    </div>
+  </div>
+
+  <div *ngIf="blog" class="blog-post">
+    <div class="blog-header">
+      <h1 class="blog-title">{{ blog.title }}</h1>
+      <div class="blog-meta">
+        <p class="author">By {{ blog.author }}</p>
+        <p class="date">{{ blog.date | date:'longDate' }}</p>
+      </div>
+    </div>
+    <div class="blog-image-container">
+      <img [src]="blog.imageUrl" [alt]="blog.title" class="blog-image">
+    </div>
+    <div class="blog-content-card">
+      <div class="content" [innerHTML]="safeContent"></div>
+    </div>
+  </div>
+</div>

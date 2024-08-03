@@ -1,0 +1,13 @@
+<div class="blog-list">
+  <div class="card" *ngFor="let blog of blogs">
+    <img [src]="blog.imageUrl" [alt]="blog.title" class="card-image">
+    <div class="card-content">
+      <h2 class="card-title">{{ blog.title }}</h2>
+      <p class="card-author">Autor: {{ blog.author }}</p>
+      <p class="card-date">{{ blog.date | date:'mediumDate' }}</p>
+      <div class="mt-4">
+        <button class="card-button" (click)="navigateToBlogPost(blog.id)">Ver más</button>
+      </div>
+    </div>
+  </div>
+</div>
